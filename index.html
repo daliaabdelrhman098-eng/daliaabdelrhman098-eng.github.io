@@ -1,0 +1,798 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Dalia — Social Media Specialist</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,600;12..96,700&family=Figtree:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+/* Layout: quiet full-width bands, one soft gradient panel in the hero, white cards with hairline borders for clients */
+:root{
+  --paper:#FBF8F3; --white:#FFFEFB;
+  --lilac:#E4DAFF; --mint:#D3F2E3; --peach:#FFDFD3; --butter:#FFEBC9;
+  --lilac-d:#9A7DF0; --mint-d:#4CC79A; --peach-d:#F59A7C; --butter-d:#F2B84B;
+  --warm:#FFFEFB; --cream:#F6F1FA; --char:#2B2A3D; --mid:#66647C; --faint:#E9E3F0; --acc:#5B3FD0; --acc-l:#ECE6FF;
+  --band:#F4F0FA;
+  --f-display:'Bricolage Grotesque',system-ui,-apple-system,'Segoe UI',sans-serif;
+  --f-body:'Figtree',system-ui,-apple-system,'Segoe UI',sans-serif;
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{font-family:var(--f-body);background:var(--paper);color:var(--char);font-size:16px;line-height:1.7;overflow-x:hidden}
+body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);background:var(--paper);z-index:300}
+a{color:inherit}
+:focus-visible{outline:3px solid var(--acc);outline-offset:2px}
+.in{width:100%;max-width:1160px;margin-inline:auto;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+@media(min-width:720px){.in{padding-left:max(32px,env(safe-area-inset-left,0px));padding-right:max(32px,env(safe-area-inset-right,0px))}}
+
+/* NAV */
+.band-nav{position:sticky;top:env(safe-area-inset-top,0px);z-index:200;background:rgba(251,248,243,.92);backdrop-filter:blur(10px);border-bottom:1px solid var(--faint)}
+.nav-in{display:flex;justify-content:space-between;align-items:center;gap:16px;padding-block:14px}
+.nav-logo{font-family:var(--f-display);font-weight:700;font-size:1.35rem;letter-spacing:-.01em;text-decoration:none;display:flex;align-items:center;gap:10px}
+.nav-logo::before{content:"";width:12px;height:12px;border-radius:50%;background:linear-gradient(135deg,var(--lilac-d),var(--mint-d))}
+.nav-links{display:flex;gap:4px;list-style:none}
+.nav-links a{font-weight:500;font-size:.92rem;color:var(--mid);text-decoration:none;padding:6px 14px;border-radius:99px;transition:background .2s,color .2s}
+.nav-links a:hover{background:var(--acc-l);color:var(--acc)}
+#editBtn{display:none;font-family:var(--f-body);font-weight:600;font-size:.8rem;padding:7px 16px;border:1px solid var(--faint);border-radius:99px;background:var(--white);color:var(--char);cursor:pointer;transition:border-color .2s,color .2s}
+#editBtn:hover{border-color:var(--acc);color:var(--acc)}
+#editBtn.active{background:var(--acc);color:#fff;border-color:var(--acc)}
+
+/* HERO */
+.hero-in{display:grid;grid-template-columns:1.15fr .85fr;gap:clamp(28px,6vw,80px);align-items:center;padding-block:clamp(40px,7vw,96px)}
+.hero-in>*{min-width:0}
+.hero-tag{display:inline-flex;align-items:center;gap:10px;font-weight:600;font-size:.78rem;letter-spacing:.14em;text-transform:uppercase;color:var(--acc);margin-bottom:20px}
+.hero-tag::before{content:"";width:22px;height:2px;border-radius:2px;background:var(--lilac-d)}
+.hero-name{font-family:var(--f-display);font-weight:700;font-size:clamp(2.5rem,5.8vw,4.6rem);line-height:1.04;letter-spacing:-.025em;text-wrap:balance;margin-bottom:20px}
+.hero-name em{font-style:normal}
+.hero-name em span{background:linear-gradient(transparent 62%,var(--butter) 62%);padding:0 .06em}
+.hero-desc{font-size:1.1rem;color:var(--mid);max-width:46ch;margin-bottom:30px}
+.hero-cta{display:inline-flex;align-items:center;gap:10px;background:var(--char);color:var(--white);text-decoration:none;font-weight:600;padding:13px 26px;border-radius:99px;transition:background .25s,gap .25s}
+.hero-cta:hover{background:var(--acc);gap:14px}
+.hero-cta::after{content:"→"}
+.panel{position:relative;overflow:hidden;border-radius:32px;background:linear-gradient(145deg,#E7DEFF 0%,#D9F3E6 55%,#FFE3D8 100%);padding:clamp(18px,3vw,30px);min-height:340px;display:flex;align-items:flex-end}
+.orb{position:absolute;border-radius:50%;filter:blur(36px);opacity:.7;animation:drift 22s ease-in-out infinite}
+.o1{width:190px;height:190px;background:#C9B6FF;right:-40px;top:-50px}
+.o2{width:150px;height:150px;background:#FFD2BF;left:-30px;bottom:30px;animation-delay:-8s}
+.o3{width:120px;height:120px;background:#9EE6C8;right:30%;top:20%;animation-delay:-14s;opacity:.5}
+@keyframes drift{0%,100%{transform:translate(0,0)}33%{transform:translate(18px,-14px)}66%{transform:translate(-14px,12px)}}
+.stats{position:relative;z-index:2;width:100%;display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.stat-card{background:rgba(255,254,251,.78);backdrop-filter:blur(8px);border-radius:20px;padding:16px 18px;border:1px solid rgba(255,255,255,.8)}
+.stat-num{font-family:var(--f-display);font-weight:700;font-size:2.2rem;line-height:1.05;letter-spacing:-.02em}
+.stat-lbl{font-size:.78rem;color:var(--mid);font-weight:500;margin-top:4px}
+
+/* SECTION BITS */
+.sec-label{display:flex;align-items:center;gap:10px;width:fit-content;font-weight:600;font-size:.78rem;letter-spacing:.14em;text-transform:uppercase;color:var(--acc);margin-bottom:14px}
+.sec-label::before{content:"";width:8px;height:8px;border-radius:50%;background:var(--mint-d)}
+.sec-title{font-family:var(--f-display);font-weight:700;font-size:clamp(1.8rem,3.6vw,2.7rem);line-height:1.12;letter-spacing:-.02em;text-wrap:balance}
+
+/* ABOUT */
+.about-section{display:grid;grid-template-columns:1fr 1.5fr;gap:clamp(24px,5vw,72px);padding-block:clamp(48px,8vw,100px);align-items:start;border-top:1px solid var(--faint)}
+.about-section>*{min-width:0}
+.about-left{position:sticky;top:calc(env(safe-area-inset-top,0px) + 90px)}
+.about-body{color:var(--mid);font-size:1.05rem;margin-bottom:18px;max-width:62ch}
+.tags{display:flex;flex-wrap:wrap;gap:8px;margin-top:26px}
+.tag{font-weight:500;font-size:.85rem;padding:7px 15px;border-radius:99px;background:var(--lilac)}
+.tag:nth-child(4n+2){background:var(--mint)}
+.tag:nth-child(4n+3){background:var(--peach)}
+.tag:nth-child(4n){background:var(--butter)}
+
+/* SERVICES */
+.services-band{background:var(--band)}
+.services-section{padding-block:clamp(48px,8vw,100px)}
+.services-tabs{display:inline-flex;flex-wrap:wrap;gap:4px;margin-top:26px;padding:4px;background:var(--white);border:1px solid var(--faint);border-radius:22px}
+.svc-tab{font-family:var(--f-body);font-weight:600;font-size:.9rem;padding:9px 18px;border:none;border-radius:99px;background:transparent;color:var(--mid);cursor:pointer;transition:background .2s,color .2s}
+.svc-tab:hover{color:var(--char)}
+.svc-tab.active{background:var(--acc-l);color:var(--acc)}
+.svc-panel{display:none;padding-top:36px}
+.svc-panel.active{display:block}
+.svc-header{display:grid;grid-template-columns:1fr 1.5fr;gap:32px;margin-bottom:26px;align-items:start}
+.svc-header>*{min-width:0}
+.svc-title{font-family:var(--f-display);font-weight:700;font-size:1.7rem;line-height:1.2;letter-spacing:-.015em}
+.svc-desc{color:var(--mid);max-width:62ch}
+.clients-list{display:flex;flex-direction:column;gap:10px}
+
+/* CLIENT ROW */
+.client-row{background:var(--white);border:1px solid var(--faint);border-radius:20px;overflow:hidden;transition:box-shadow .25s,border-color .25s}
+.client-row:hover{box-shadow:0 8px 24px rgba(91,63,208,.08);border-color:#D9CEF3}
+.client-header{display:grid;grid-template-columns:64px 1fr auto auto;align-items:center;gap:16px;padding:18px 22px;cursor:pointer}
+.client-year{font-weight:600;font-size:.85rem;color:var(--mid)}
+.client-name{font-family:var(--f-display);font-weight:600;font-size:1.18rem;min-width:0}
+.client-badge{font-weight:600;font-size:.72rem;letter-spacing:.05em;text-transform:uppercase;padding:5px 12px;border-radius:99px;background:var(--mint)}
+.client-row:nth-child(4n+2) .client-badge{background:var(--peach)}
+.client-row:nth-child(4n+3) .client-badge{background:var(--butter)}
+.client-row:nth-child(4n) .client-badge{background:var(--lilac)}
+.edit-mode .client-header{grid-template-columns:64px 1fr auto auto auto}
+.client-arrow{font-size:1.1rem;color:var(--mid);transition:transform .25s,color .25s}
+.client-row.open .client-arrow{transform:rotate(90deg);color:var(--acc)}
+.client-body{display:none;padding:4px 22px 26px 102px;border-top:1px solid var(--faint);animation:fadeIn .25s ease}
+.client-row.open .client-body{display:block}
+@keyframes fadeIn{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:translateY(0)}}
+.client-brief{color:var(--mid);max-width:62ch;margin:18px 0 18px}
+.client-tabs{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:18px}
+.ctab{font-family:var(--f-body);font-weight:600;font-size:.8rem;padding:7px 14px;border:none;border-radius:99px;background:var(--cream);color:var(--mid);cursor:pointer;transition:background .15s,color .15s}
+.ctab:hover{color:var(--char)}
+.ctab.active{background:var(--acc-l);color:var(--acc)}
+.ctab-panel{display:none}
+.ctab-panel.active{display:block}
+
+/* CONTENT GRID */
+.content-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(190px,1fr));gap:14px;margin-top:6px}
+.content-item{background:var(--white);border:1px solid var(--faint);border-radius:16px;padding:12px;display:flex;flex-direction:column;gap:8px;min-width:0}
+.content-item img{width:100%;height:130px;object-fit:cover;background:var(--faint);border-radius:10px}
+.content-item-label{font-size:.85rem;color:var(--mid);line-height:1.5}
+.content-item a{font-weight:600;font-size:.8rem;color:var(--acc);text-decoration:none}
+.content-item a::after{content:" ↗"}
+
+/* LINKS LIST */
+.links-list{display:flex;flex-direction:column;gap:8px;margin-top:6px}
+.link-item{display:flex;align-items:center;gap:12px;padding:10px 14px;background:var(--white);border:1px solid var(--faint);border-radius:14px;min-width:0}
+.link-platform{font-weight:600;font-size:.72rem;letter-spacing:.06em;text-transform:uppercase;padding:4px 12px;background:var(--lilac);border-radius:99px;white-space:nowrap}
+.link-item a{font-size:.9rem;text-decoration:none;flex:1;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.link-item a:hover{color:var(--acc)}
+
+/* RESULTS */
+.results-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:12px;margin-top:6px}
+.result-card{border-radius:18px;padding:16px;text-align:center;background:var(--butter)}
+.result-card:nth-child(4n+2){background:var(--mint)}
+.result-card:nth-child(4n+3){background:var(--lilac)}
+.result-card:nth-child(4n){background:var(--peach)}
+.result-num{font-family:var(--f-display);font-weight:700;font-size:2rem;line-height:1.1;letter-spacing:-.02em}
+.result-lbl{font-size:.78rem;font-weight:500;color:var(--mid);margin-top:4px}
+
+/* PLAN */
+.plan-pdf-btn{display:inline-flex;align-items:center;gap:10px;border:1px solid var(--faint);border-radius:99px;padding:10px 20px;font-weight:600;font-size:.88rem;text-decoration:none;background:var(--white);transition:border-color .2s,color .2s}
+.plan-pdf-btn:hover{border-color:var(--acc);color:var(--acc)}
+.plan-pdf-btn::before{content:"📄"}
+.plan-notes{margin-top:16px;color:var(--mid);max-width:62ch}
+
+/* EDIT MODE */
+.edit-bar{display:none;position:fixed;left:0;right:0;bottom:0;z-index:300;background:var(--char);color:var(--white);padding-top:14px;padding-bottom:calc(14px + env(safe-area-inset-bottom,0px));padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));align-items:center;gap:16px;flex-wrap:wrap;font-size:.85rem}
+.edit-bar.show{display:flex}
+.edit-bar strong{color:var(--butter)}
+.form-row{display:grid;grid-template-columns:110px 1fr;align-items:center;gap:12px;margin-bottom:12px}
+.form-row label{font-size:.75rem;letter-spacing:.08em;text-transform:uppercase;color:var(--mid)}
+.form-row input,.form-row textarea,.form-row select{width:100%;padding:8px 12px;border:1px solid var(--faint);background:var(--white);font-family:var(--f-body);font-size:.9rem;color:var(--char);outline:none;border-radius:10px}
+.form-row input:focus,.form-row textarea:focus{border-color:var(--acc)}
+.form-row textarea{height:80px;resize:vertical}
+.form-actions{display:flex;gap:12px;margin-top:16px}
+.btn-save{padding:9px 22px;background:var(--acc);color:#fff;border:1px solid var(--acc);border-radius:99px;cursor:pointer;font-family:var(--f-body);font-weight:600;font-size:.85rem}
+.btn-cancel{padding:9px 20px;background:none;border:1px solid var(--faint);border-radius:99px;cursor:pointer;font-family:var(--f-body);font-weight:600;font-size:.85rem;color:var(--mid)}
+.add-btn{display:inline-flex;align-items:center;gap:8px;font-family:var(--f-body);font-weight:600;font-size:.82rem;color:var(--acc);border:1px dashed var(--acc);border-radius:99px;padding:7px 16px;background:none;cursor:pointer;margin-top:14px;transition:background .2s}
+.add-btn:hover{background:var(--acc-l)}
+.delete-btn{font-family:var(--f-body);font-weight:600;font-size:.8rem;color:#B3261E;background:none;cursor:pointer;padding:6px 14px;border:1px solid #EBC4C0;border-radius:99px}
+.edit-mode [data-key]{outline:none;border-bottom:2px dashed var(--acc);cursor:text;min-width:20px;display:inline-block}
+.edit-mode [data-key]:hover{background:var(--acc-l)}
+.edit-mode [data-key]:focus{background:var(--acc-l);border-bottom-color:var(--char)}
+.save-toast{position:fixed;left:50%;bottom:calc(76px + env(safe-area-inset-bottom,0px));transform:translateX(-50%);background:var(--char);color:var(--white);padding:10px 22px;border-radius:99px;font-size:.85rem;font-weight:600;z-index:500;opacity:0;transition:opacity .3s;pointer-events:none}
+.save-toast.show{opacity:1}
+
+/* CONTACT */
+.contact-band{background:linear-gradient(160deg,#EFE8FF 0%,#E1F5EC 50%,#FFE9DF 100%)}
+.contact-in{text-align:center;padding-block:clamp(56px,9vw,112px)}
+.contact-in .sec-label{margin-inline:auto}
+.contact-title{font-family:var(--f-display);font-weight:700;font-size:clamp(2.1rem,5.4vw,4rem);line-height:1.07;letter-spacing:-.025em;text-wrap:balance;max-width:14em;margin:6px auto 30px}
+.contact-title em{font-style:normal}
+.contact-title em span{background:linear-gradient(transparent 62%,var(--butter) 62%);padding:0 .06em}
+.contact-btns{display:flex;gap:12px;justify-content:center;flex-wrap:wrap}
+.btn-pri{display:inline-flex;align-items:center;background:var(--char);color:var(--white);text-decoration:none;font-weight:600;padding:13px 28px;border-radius:99px;transition:background .25s}
+.btn-pri:hover{background:var(--acc)}
+.btn-out{display:inline-flex;align-items:center;background:var(--white);color:var(--char);text-decoration:none;font-weight:600;padding:13px 28px;border-radius:99px;border:1px solid var(--faint);transition:border-color .2s,color .2s}
+.btn-out:hover{border-color:var(--acc);color:var(--acc)}
+.contact-edit{display:none;margin-top:24px;gap:12px;flex-wrap:wrap;justify-content:center}
+.contact-edit input{padding:9px 16px;border:1px solid var(--faint);border-radius:99px;background:var(--white);font-family:var(--f-body);font-size:.9rem;color:var(--char);width:min(260px,100%)}
+
+/* FOOTER */
+.band-foot{border-top:1px solid var(--faint)}
+.foot{display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:8px 24px;padding-block:22px;font-size:.85rem;color:var(--mid)}
+.footer-name{font-family:var(--f-display);font-weight:700;font-size:1.1rem;color:var(--char)}
+
+/* RESPONSIVE */
+@media(max-width:860px){
+  .hero-in,.about-section,.svc-header{grid-template-columns:1fr}
+  .svc-header{gap:12px}
+  .about-left{position:static}
+  .panel{min-height:300px}
+}
+@media(max-width:600px){
+  .nav-links{display:none}
+  .client-header{grid-template-columns:48px 1fr auto;padding:16px;gap:12px}
+  .client-badge{display:none}
+  .edit-mode .client-header{grid-template-columns:48px 1fr auto auto}
+  .client-body{padding:4px 16px 22px}
+  .form-row{grid-template-columns:1fr;gap:6px}
+}
+@media(prefers-reduced-motion:reduce){*,*::before,*::after{animation:none!important;transition:none!important}html{scroll-behavior:auto}}
+</style>
+</head>
+<body>
+
+<nav class="band-nav">
+  <div class="in nav-in">
+    <a href="#" class="nav-logo">Dalia</a>
+    <ul class="nav-links">
+      <li><a href="#about">About</a></li>
+      <li><a href="#services">Work</a></li>
+      <li><a href="#contact">Contact</a></li>
+    </ul>
+    <button id="editBtn" onclick="toggleEdit()">✦ Edit mode</button>
+  </div>
+</nav>
+
+<section class="band hero">
+  <div class="in hero-in">
+    <div class="hero-copy">
+      <div class="hero-tag"><span data-key="hero-tag">Social Media Specialist</span></div>
+      <h1 class="hero-name"><span data-key="hero-line1">Crafting content</span><br><em><span data-key="hero-em">that converts</span></em></h1>
+      <p class="hero-desc"><span data-key="hero-desc">Helping brands across Saudi Arabia and Egypt build a real social media presence — from strategy to execution, in Arabic and English.</span></p>
+      <a href="#contact" class="hero-cta"><span data-key="hero-cta">Let's work together</span></a>
+    </div>
+    <div class="panel">
+      <div class="orb o1"></div><div class="orb o2"></div><div class="orb o3"></div>
+      <div class="stats">
+        <div class="stat-card"><div class="stat-num"><span data-key="stat1-num">5+</span></div><div class="stat-lbl"><span data-key="stat1-lbl">Years experience</span></div></div>
+        <div class="stat-card"><div class="stat-num"><span data-key="stat2-num">20+</span></div><div class="stat-lbl"><span data-key="stat2-lbl">Brands served</span></div></div>
+        <div class="stat-card"><div class="stat-num"><span data-key="stat3-num">2</span></div><div class="stat-lbl"><span data-key="stat3-lbl">Markets — KSA &amp; EG</span></div></div>
+        <div class="stat-card"><div class="stat-num"><span data-key="stat4-num">5+</span></div><div class="stat-lbl"><span data-key="stat4-lbl">Industries</span></div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="about" class="band about-band">
+  <div class="in about-section">
+    <div class="about-left">
+      <div class="sec-label"><span data-key="about-label">About</span></div>
+      <h2 class="sec-title"><span data-key="about-title">Strategy meets storytelling</span></h2>
+    </div>
+    <div>
+      <p class="about-body"><span data-key="about-p1">I'm Dalia, a social media and digital marketing specialist with deep expertise in the Gulf and Egyptian markets. I work at the intersection of content, strategy, and data — building social media systems that generate real leads and measurable results.</span></p>
+      <p class="about-body"><span data-key="about-p2">From content calendars and Reels scripts to full paid media campaigns on Meta and Google, I manage the full cycle — bilingual in Arabic and English, adapting between Gulf and Egyptian dialect.</span></p>
+      <p class="about-body"><span data-key="about-p3">Currently at wzgate — a digital marketing and real estate tech company — managing multi-client accounts across diverse sectors simultaneously.</span></p>
+      <div class="tags">
+        <span class="tag" data-key="tag1">Content Strategy</span><span class="tag" data-key="tag2">Arabic Copywriting</span>
+        <span class="tag" data-key="tag3">Meta Ads</span><span class="tag" data-key="tag4">Google Ads</span><span class="tag" data-key="tag5">SEO</span>
+        <span class="tag" data-key="tag6">Reels &amp; Video</span><span class="tag" data-key="tag7">Snapchat</span><span class="tag" data-key="tag8">Lead Generation</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="services" class="band services-band">
+  <div class="in services-section">
+    <div class="sec-label"><span data-key="work-label">Selected Work</span></div>
+    <h2 class="sec-title"><span data-key="work-title">Services &amp; Case Studies</span></h2>
+
+    <div class="services-tabs">
+      <button class="svc-tab active" onclick="switchTab('sm',this)">Social Media</button>
+      <button class="svc-tab" onclick="switchTab('content',this)">Content &amp; Copywriting</button>
+      <button class="svc-tab" onclick="switchTab('seo',this)">SEO</button>
+      <button class="svc-tab" onclick="switchTab('ads',this)">Google Ads</button>
+    </div>
+
+    <div id="tab-sm" class="svc-panel active">
+      <div class="svc-header">
+        <div class="svc-title"><span data-key="svc-sm-title">Social Media Management</span></div>
+        <p class="svc-desc"><span data-key="svc-sm-desc">Full account management — strategy, content calendars, community management, and performance tracking across Instagram, Facebook, Snapchat, and TikTok in the MENA region.</span></p>
+      </div>
+      <div class="clients-list" id="clients-sm"></div>
+      <button class="add-btn" id="addBtn-sm" style="display:none" onclick="showAddClient('sm')">+ Add brand</button>
+    </div>
+
+    <div id="tab-content" class="svc-panel">
+      <div class="svc-header">
+        <div class="svc-title"><span data-key="svc-content-title">Content &amp; Copywriting</span></div>
+        <p class="svc-desc"><span data-key="svc-content-desc">Brand-aligned Arabic and English content — captions, scripts, carousels, blogs, and Reels concepts tailored to resonate with Egyptian and Gulf audiences.</span></p>
+      </div>
+      <div class="clients-list" id="clients-content"></div>
+      <button class="add-btn" id="addBtn-content" style="display:none" onclick="showAddClient('content')">+ Add brand</button>
+    </div>
+
+    <div id="tab-seo" class="svc-panel">
+      <div class="svc-header">
+        <div class="svc-title"><span data-key="svc-seo-title">SEO</span></div>
+        <p class="svc-desc"><span data-key="svc-seo-desc">Bilingual keyword research, on-page optimization, meta content, and product-page SEO for Arabic e-commerce platforms including Zid and Salla.</span></p>
+      </div>
+      <div class="clients-list" id="clients-seo"></div>
+      <button class="add-btn" id="addBtn-seo" style="display:none" onclick="showAddClient('seo')">+ Add brand</button>
+    </div>
+
+    <div id="tab-ads" class="svc-panel">
+      <div class="svc-header">
+        <div class="svc-title"><span data-key="svc-ads-title">Google Ads</span></div>
+        <p class="svc-desc"><span data-key="svc-ads-desc">Campaign setup, RSA copy, keyword targeting, and performance optimization — focused on lead generation for real estate and service businesses in Egypt and the Gulf.</span></p>
+      </div>
+      <div class="clients-list" id="clients-ads"></div>
+      <button class="add-btn" id="addBtn-ads" style="display:none" onclick="showAddClient('ads')">+ Add brand</button>
+    </div>
+  </div>
+</section>
+
+<!-- ADD CLIENT MODAL -->
+<div id="addModal" style="display:none;position:fixed;inset:0;z-index:400;background:rgba(28,26,24,.5);align-items:center;justify-content:center">
+  <div style="background:var(--warm);width:min(560px,95vw);max-height:90vh;overflow-y:auto;padding:2.5rem;position:relative">
+    <button onclick="closeModal()" style="position:absolute;top:1.2rem;right:1.5rem;background:none;border:none;font-size:1.3rem;cursor:pointer;color:var(--mid)">✕</button>
+    <div style="font-family:'Cormorant Garamond',serif;font-size:1.5rem;margin-bottom:1.5rem">Add New Brand</div>
+    <input type="hidden" id="modalService">
+    <div class="form-row"><label>Name</label><input id="f-name" placeholder="Brand name"></div>
+    <div class="form-row"><label>Year</label><input id="f-year" placeholder="2024"></div>
+    <div class="form-row"><label>Badge</label><input id="f-badge" placeholder="Real Estate, F&B..."></div>
+    <div class="form-row"><label>Brief</label><textarea id="f-brief" placeholder="Short description of what you did..."></textarea></div>
+    <div style="font-size:.72rem;letter-spacing:.1em;text-transform:uppercase;color:var(--mid);margin:.8rem 0 .5rem">Plan PDF link (Google Drive)</div>
+    <input id="f-plan" placeholder="https://drive.google.com/..." style="width:100%;padding:.5rem .8rem;border:1px solid var(--faint);background:var(--warm);font-family:'Jost',sans-serif;font-size:.85rem;margin-bottom:.8rem">
+    <div style="font-size:.72rem;letter-spacing:.1em;text-transform:uppercase;color:var(--mid);margin:.8rem 0 .5rem">Plan notes (optional)</div>
+    <textarea id="f-plan-notes" placeholder="Key highlights from the plan..." style="width:100%;padding:.5rem .8rem;border:1px solid var(--faint);background:var(--warm);font-family:'Jost',sans-serif;font-size:.85rem;height:70px;resize:vertical;margin-bottom:.8rem"></textarea>
+    <div style="font-size:.72rem;letter-spacing:.1em;text-transform:uppercase;color:var(--mid);margin:.8rem 0 .5rem">Social Links</div>
+    <div id="socialLinksContainer"></div>
+    <button class="add-btn" onclick="addSocialRow()" style="margin-bottom:1rem">+ Add link</button>
+    <div style="font-size:.72rem;letter-spacing:.1em;text-transform:uppercase;color:var(--mid);margin:.8rem 0 .5rem">Results</div>
+    <div id="resultsContainer"></div>
+    <button class="add-btn" onclick="addResultRow()" style="margin-bottom:1rem">+ Add result</button>
+    <div style="font-size:.72rem;letter-spacing:.1em;text-transform:uppercase;color:var(--mid);margin:.8rem 0 .5rem">Strategy &amp; plan files (PDFs, Drive, any link, add as many as you like)</div>
+    <div id="docsContainer"></div>
+    <button class="add-btn" onclick="addDocRow()" style="margin-bottom:1rem">+ Add PDF or link</button>
+    <div style="font-size:.72rem;letter-spacing:.1em;text-transform:uppercase;color:var(--mid);margin:.8rem 0 .5rem">Content / Image links</div>
+    <div id="contentContainer"></div>
+    <button class="add-btn" onclick="addContentRow()" style="margin-bottom:1.5rem">+ Add image or link</button>
+    <div class="form-actions">
+      <button class="btn-save" onclick="saveClient()">Save Brand</button>
+      <button class="btn-cancel" onclick="closeModal()">Cancel</button>
+    </div>
+  </div>
+</div>
+
+<!-- EDIT BAR -->
+<div class="edit-bar" id="editBar">
+  <strong>✦ Edit mode on</strong>
+  <span style="color:#aaa">— click any text to edit it directly · use + to add clients</span>
+  <button onclick="savePageText()" style="margin-left:auto;padding:.4rem 1.1rem;background:var(--acc);color:#fff;border:none;cursor:pointer;font-family:'Jost',sans-serif;font-size:.72rem;letter-spacing:.1em;text-transform:uppercase">Save text ✓</button>
+</div>
+<div class="save-toast" id="saveToast">Saved ✓</div>
+
+<section id="contact" class="band contact-band">
+  <div class="in contact-in">
+    <div class="sec-label"><span data-key="contact-label">Contact</span></div>
+    <h2 class="contact-title"><span data-key="contact-title">Ready to grow your brand</span><br><em><span data-key="contact-em">together?</span></em></h2>
+    <div class="contact-btns">
+      <a id="emailLink" href="mailto:your@email.com" class="btn-pri"><span data-key="contact-email-label">Send me an email</span></a>
+      <a id="waLink" href="https://wa.me/YOUR_NUMBER" class="btn-out"><span data-key="contact-wa-label">WhatsApp me</span></a>
+    </div>
+    <div id="contactEditFields" class="contact-edit">
+      <input id="emailVal" placeholder="your@email.com">
+      <input id="waVal" placeholder="WhatsApp number e.g. 201xxxxxxxxx">
+      <button onclick="saveContactLinks()" class="btn-save">Save links</button>
+    </div>
+  </div>
+</section>
+
+<footer class="band band-foot">
+  <div class="in foot">
+    <span class="footer-name">Dalia</span>
+    <span data-key="footer-line">Social Media Specialist · KSA &amp; Egypt</span>
+    <span>© 2026</span>
+  </div>
+</footer>
+
+<script>
+// ─── STATE ───────────────────────────────────────────────────────
+let db = null, user = null, isOwner = false, editMode = false;
+let clients = {};  // {service: [{id,name,year,badge,brief,plan,planNotes,links,results,content}]}
+
+// Default seed data
+const SEED = {
+  sm: [
+    {id:'s1',name:'wzgate — Social Media Specialist',year:'Mar 2025 – Present',badge:'Digital Marketing · Real Estate Tech',brief:'Social Media Specialist at wzgate, a digital marketing and real estate tech company. I manage the brand\'s organic presence on Facebook, Instagram and LinkedIn: content design, publishing and page growth. I also supported the team with Google Ads work (see Ads section).',plan:'WzState-Marketing-Strategy.pdf',planNotes:'WzState marketing strategy, Nov 2026 – Jan 2027, Egypt and KSA. Goal: 10 new clients by end of January through 50 demos, targeting real estate brokerages. Channels: Meta, LinkedIn and Google plus weekly organic content, with a EGP 60K monthly ad budget. Launch: Nov 1 in Egypt, Dec 15 in KSA.',links:[{platform:'Facebook',url:'https://www.facebook.com/share/18v3ZG6Gxa/'},{platform:'Instagram',url:'https://www.instagram.com/wzgate'},{platform:'LinkedIn',url:'https://www.linkedin.com/company/trywzgate/'}],results:[{num:'1,098',label:'LinkedIn followers (Dec 2025 – Nov 2026)'},{num:'1,694',label:'LinkedIn page views'},{num:'678',label:'LinkedIn unique visitors'},{num:'9.6K',label:'Organic Facebook content views (Apr 2025 – Jul 2026)'},{num:'146K',label:'Total Facebook content views, incl. paid promotion (Apr 2025 – Jul 2026)'}],content:[],docs:[{title:'WzState marketing strategy (English)',url:'WzState-Marketing-Strategy.pdf'},{title:'WzState content plan (Arabic)',url:'WzState-Content-Plan.pdf'}]},
+    {id:'s2',name:'TRENT App',year:'2024',badge:'SaaS · Saudi',brief:'Social media strategy and media buying for a Saudi marketplace app — content creation, paid campaigns, and app install ads across Snapchat, Instagram, and TikTok.',plan:'',planNotes:'',links:[],results:[],content:[]},
+    {id:'s3',name:'Infinity Beauty Clinic',year:'2024',badge:'Beauty',brief:'Full marketing strategy — competitor analysis, SWOT, STP, and platform content plan to grow clinic presence from 2.4K to a dominant local following.',plan:'',planNotes:'',links:[],results:[],content:[]},
+    {id:'s4',name:'عالفحم — Ala Al Faham',year:'2024',badge:'Food & Beverage',brief:'Brand identity collaboration and launch marketing for a grilled meat brand. Arabic content creation, Ramadan campaign, and product storytelling.',plan:'',planNotes:'',links:[],results:[],content:[]},
+    {id:'s5',name:'CTRL App',year:'2024',badge:'HR Tech',brief:'Phased social media strategy for an HR management app — competitor analysis of Jisr, Bayzat, Availo, and a quarterly roadmap from Egypt awareness to Gulf expansion.',plan:'',planNotes:'',links:[],results:[],content:[]},
+  ],
+  content: [
+    {id:'c1',name:'Postex',year:'2024',badge:'Logistics',brief:'Full Arabic content library for a delivery company — USP-focused posts, Mother\'s Day and Ramadan campaigns, app download content, and merchant-facing posts.',plan:'',planNotes:'',links:[],results:[{num:'30+',label:'Posts written'}],content:[]},
+    {id:'c2',name:'Herafy — يفرح',year:'2022',badge:'E-commerce',brief:'Content plan for a handicrafts platform — SWOT, channel strategy, and a calendar targeting 1,000+ followers in 2 months with a 5–15% sales increase.',plan:'',planNotes:'',links:[],results:[],content:[]},
+    {id:'c3',name:'Ayat Al-Bayan',year:'2024',badge:'EdTech',brief:'Social media content and campaign for an online Quran academy — targeting Saudi mothers on Instagram with Arabic copy, story templates, and ad content.',plan:'',planNotes:'',links:[],results:[],content:[]},
+    {id:'c4',name:'Al-Dulaiman Travel',year:'2024',badge:'Tourism',brief:'Gulf-dialect Arabic content for a Saudi travel agency — destination posts, seasonal campaigns, and story content for Instagram and Snapchat.',plan:'',planNotes:'',links:[],results:[],content:[]},
+  ],
+  seo: [
+    {id:'e1',name:'Avon Cake',year:'2024',badge:'E-commerce · Zid',brief:'Deep SEO and product-page optimization on the Zid platform — bilingual keyword research, meta descriptions, and product copy for a Saudi cake brand.',plan:'',planNotes:'',links:[],results:[],content:[]},
+    {id:'e2',name:'Nebula Cake',year:'2024',badge:'E-commerce · Salla',brief:'SEO content and platform optimization on Salla — product descriptions, category pages, and keyword targeting for a cake and desserts brand.',plan:'',planNotes:'',links:[],results:[],content:[]},
+  ],
+  ads: [
+    {id:'a1',name:'wzgate — Google Ads Support',year:'2025',badge:'Real Estate',brief:'Supporting role on Google Ads for wzgate: keyword research, RSA ad copy, and campaign auditing for Egyptian real estate developer clients, focused on high-intent lead generation.',plan:'',planNotes:'',links:[],results:[],content:[]},
+  ]
+};
+
+// ─── INIT ────────────────────────────────────────────────────────
+const STATIC_CLIENTS = {"ads": [{"badge": "Real Estate", "brief": "Supporting role on Google Ads for wzgate: keyword research, RSA ad copy, and campaign auditing for Egyptian real estate developer clients, focused on high-intent lead generation.", "content": [], "id": "a1", "links": [], "name": "wzgate — Google Ads Support", "plan": "", "planNotes": "", "results": [], "year": "2025"}], "content": [{"badge": "Tourism", "brief": "Gulf-dialect Arabic content for a Saudi travel agency — destination posts, seasonal campaigns, and story content for Instagram and Snapchat.", "content": [{"img": "", "label": "Static design: World Cup 2026, 3 countries and 16 cities as one travel experience", "url": "https://www.instagram.com/p/DZaUxZcqyQM/"}, {"img": "", "label": "Static design: World Cup travel package from SAR 14,718 with trophy and ticket", "url": "https://www.instagram.com/p/DZdHRP_qHJX/"}, {"img": "", "label": "Static design: Saudi team World Cup route ticket (Miami, Atlanta, Houston)", "url": "https://www.instagram.com/p/DZmxmjSqsd8/"}, {"img": "", "label": "Reel cover: Saudi flag, World Cup campaign", "url": "https://www.instagram.com/reel/DZnK7LRKEtt/"}, {"img": "", "label": "Static design: ticket-style post for the Miami match, 16 June", "url": "https://www.instagram.com/p/DZpT-6tqkki/"}, {"img": "", "label": "Static design: Atlanta destination post with stadium at night", "url": "https://www.instagram.com/p/DZsTRxAsvlW/"}, {"img": "", "label": "Static design: score prediction post, Saudi Arabia vs Spain", "url": "https://www.instagram.com/p/DZvGbpAPyrM/"}, {"img": "", "label": "Static design: Houston destination post with NRG Stadium", "url": "https://www.instagram.com/p/DZ8G1aUqygm/"}, {"img": "", "label": "Static design: score prediction post, Cape Verde vs Saudi Arabia", "url": "https://www.instagram.com/p/DaA8twTKEI-/"}, {"img": "", "label": "Reel cover: Al-Dulaiman Travel branded intro", "url": "https://www.instagram.com/reel/Dc_D1bgK9Mq/"}, {"img": "", "label": "Reel cover: Red Sea, Saudi Arabia destination video", "url": "https://www.instagram.com/reel/DYCrDh9qj2l/"}], "id": "c4", "links": [], "name": "Al-Dulaiman Travel", "plan": "", "planNotes": "", "results": [], "year": "2024"}, {"badge": "EdTech", "brief": "Social media content and campaign for an online Quran academy — targeting Saudi mothers on Instagram with Arabic copy, story templates, and ad content.", "content": [], "id": "c3", "links": [], "name": "Ayat Al-Bayan", "plan": "", "planNotes": "", "results": [], "year": "2024"}, {"badge": "Real Estate", "brief": "", "content": [{"img": "", "label": "", "url": ""}], "id": "c1792671420223", "links": [{"platform": "Facebook", "url": "https://www.facebook.com/photo/?fbid=122271073634156668&set=pcb.122271073682156668&__cft__[0]=AZgGXd10DKoWuUhaWFxUGG06DC7JjJ_4FoXYWm3dI9e5wGIiJPb-GZTUnZFZxffXnYbE7pyKw4eDldfR7njXCXKiFH3mqVzk3YIvAlyoSMZzvFi_YfFVC1wcnw0TrMB95vyTWvZ1LwL5CC9bmqgTm0vqW1CctKN233CsPfaMtpyvSbPbs7EySaeWvr95sZk&__tn__=*b0H-R"}], "name": "wzgate Real Estate", "plan": "", "planNotes": "", "results": [], "year": "2024"}, {"badge": "Fashion & Retail", "brief": "Instagram content for NEX Fashion, a fashion education brand for Arab designers: posts and reels on webinars, mentors, diplomas, sustainability and the brand community, in Arabic and English. Includes one collaboration post with Her Mark Expo.", "content": [{"img": "", "label": "Post: NexFashion brand introduction", "url": "https://www.instagram.com/p/DOJBmB1inzj/"}, {"img": "", "label": "Post: Arabic identity in global fashion", "url": "https://www.instagram.com/p/DOd1ry8CcTH/"}, {"img": "", "label": "Post: Arabic fashion education and technology", "url": "https://www.instagram.com/p/DOqtYzhjOqV/"}, {"img": "", "label": "Post: CLO3D and AI in fashion education", "url": "https://www.instagram.com/p/DO3X1UtDQIn/"}, {"img": "", "label": "Reel: platform for fashion designers", "url": "https://www.instagram.com/reel/DO8rc91imwM/"}, {"img": "", "label": "Post: fast fashion vs green fashion poll", "url": "https://www.instagram.com/p/DPRfnO4DMqi/"}, {"img": "", "label": "Post: heritage design vs Western trends poll", "url": "https://www.instagram.com/p/DPUBVG-DO1U/"}, {"img": "", "label": "Post: vision for the future of Arabic fashion", "url": "https://www.instagram.com/p/DPbozCGDMf2/"}, {"img": "", "label": "Reel: jeans water use and recycling", "url": "https://www.instagram.com/reel/DPgrvOsiIOw/"}, {"img": "", "label": "Reel: building a community for Arab designers", "url": "https://www.instagram.com/reel/DPjXvpKCMYH/"}, {"img": "", "label": "Collab post: Platinum Sponsor of Her Mark Expo", "url": "https://www.instagram.com/p/DPqp9NnCM13/"}, {"img": "", "label": "Post: webinar announcement for emerging designers", "url": "https://www.instagram.com/p/DPq_cEoDEGJ/"}, {"img": "", "label": "Post: international fashion competitions and events", "url": "https://www.instagram.com/p/DPtjYb8iPK6/"}, {"img": "", "label": "Post: Meet the Mentor webinar speakers", "url": "https://www.instagram.com/p/DPwXsA5iAu8/"}, {"img": "", "label": "Reel: breaking into international fashion", "url": "https://www.instagram.com/reel/DPys7vBiI6B/"}, {"img": "", "label": "Reel: fashion as a structured discipline", "url": "https://www.instagram.com/reel/DP1mjJxje3i/"}, {"img": "", "label": "Post: NexFashion joins a major Arab designers event", "url": "https://www.instagram.com/p/DP6CXv4DRAW/"}, {"img": "", "label": "Post: green fashion and sustainability", "url": "https://www.instagram.com/p/DQCNM5GlObU/"}, {"img": "", "label": "Reel: designer stories and sustainability", "url": "https://www.instagram.com/reel/DQEugmbCNt2/"}, {"img": "", "label": "Post: international competitions for designers", "url": "https://www.instagram.com/p/DQKF-M8jxg0/"}, {"img": "", "label": "Post: Technical Fashion Designer diploma", "url": "https://www.instagram.com/p/DRxQuw3Dcd4/"}, {"img": "", "label": "Reel: patchwork technique", "url": "https://www.instagram.com/reel/DSNaocACFv8/"}, {"img": "", "label": "Post: join the largest Arab fashion community", "url": "https://www.instagram.com/p/DSQBQsLjp2b/"}], "docs": [], "id": "c6", "links": [{"platform": "Instagram", "url": "https://www.instagram.com/nexfashion.xyz"}], "name": "Nex Fashion", "plan": "", "planNotes": "", "results": [], "year": "Sep – Dec 2025"}], "seo": [{"badge": "E-commerce · Zid", "brief": "Deep SEO and product-page optimization on the Zid platform — bilingual keyword research, meta descriptions, and product copy for a Saudi cake brand.", "content": [], "docs": [], "id": "e1", "links": [], "name": "Avon Cake", "plan": "https://docs.google.com/spreadsheets/d/1_umb6OwV47rqP4fzR3mYPk8nZXSZV3HOGUBoy62O5mw/edit?gid=0#gid=0", "planNotes": "", "results": [], "year": "2024"}, {"badge": "E-commerce · Salla", "brief": "SEO content and platform optimization on Salla — product descriptions, category pages, and keyword targeting for a cake and desserts brand.", "content": [], "id": "e2", "links": [], "name": "Nebula Cake", "plan": "", "planNotes": "", "results": [], "year": "2024"}], "sm": [{"badge": "Digital Marketing · Real Estate Tech", "brief": "Social Media Specialist at wzgate, a digital marketing and real estate tech company. I manage the brand's organic presence on Facebook, Instagram and LinkedIn: content design, publishing and page growth. I also supported the team with Google Ads work (see Ads section).", "content": [{"img": "", "label": "Carousel: capturing real estate sales opportunities in El Tagamoa (New Cairo)", "url": "https://www.linkedin.com/posts/trywzgate_%D8%A7%D9%84%D8%AA%D8%AC%D9%85%D8%B9-%D8%B4%D8%A8%D8%B9%D8%AA-%D9%85%D8%A8%D9%8A%D8%B9%D8%A7%D8%AA-%D8%A7%D9%84%D8%A5%D8%AC%D8%A7%D8%A8%D8%A9-%D9%84%D8%A3-%D8%A8%D8%B3-%D9%82%D9%88%D8%A7%D8%B9%D8%AF-activity-7496083734467776512-B60C"}, {"img": "", "label": "Carousel: 3 findings from Egyptian real estate buyer search intent analysis", "url": "https://www.linkedin.com/posts/trywzgate_%D8%A5%D8%B2%D8%A7%D9%8A-%D8%A8%D9%8A%D9%81%D9%83%D8%B1-%D8%B9%D9%85%D9%8A%D9%84-%D8%A7%D9%84%D8%B9%D9%82%D8%A7%D8%B1%D8%A7%D8%AA-%D9%81%D9%8A-%D9%85%D8%B5%D8%B1-activity-7495721303778283520-eU27"}, {"img": "", "label": "Static design: the Google Ads learning phase (7-14 days) explained", "url": "https://www.linkedin.com/posts/trywzgate_wzgate-googleads-campaignmanagement-activity-7495374519671414784-wAjm"}, {"img": "", "label": "Static design: why lead count alone is not a success metric", "url": "https://www.linkedin.com/posts/trywzgate_wzgate-leadgeneration-realestatemarketing-activity-7488503884282400768-zgoN"}, {"img": "", "label": "Carousel: 5 landing page essentials for real estate campaigns", "url": "https://www.linkedin.com/posts/trywzgate_5-%D8%AA%D9%81%D8%A7%D8%B5%D9%8A%D9%84-%D9%85%D9%85%D9%83%D9%86-%D8%AA%D8%BA%D9%8A%D8%B1-%D9%86%D8%AA%D8%A7%D8%A6%D8%AC-%D8%AD%D9%85%D9%84%D8%AA%D9%83-%D8%A7%D9%84%D8%B9%D9%82%D8%A7%D8%B1%D9%8A%D8%A9-activity-7487779133209464834-RLbC"}, {"img": "", "label": "Video: the 3 metrics that matter - CTR, CPA, conversions", "url": "https://www.instagram.com/wzgate/reel/DbTBewRDD5i/"}, {"img": "", "label": "Static design: 72 leads in one day - rising demand for Hacienda Ras El Hekma", "url": "https://www.linkedin.com/posts/trywzgate_wzgate-realestatemarketing-%D9%87%D8%A7%D8%B3%D9%8A%D9%86%D8%AF%D8%A7%D8%B1%D8%A3%D8%B3%D8%A7%D9%84%D8%AD%D9%83%D9%85%D8%A9-activity-7482766593928671233-imB7"}, {"img": "", "label": "Static design: targeting project-name searches to reach ready buyers", "url": "https://www.linkedin.com/posts/trywzgate_realestatemarketing-googleads-digitalmarketing-activity-7482328477338275840-3310"}, {"img": "", "label": "Carousel: landing page formula that wins the first 3 seconds", "url": "https://www.linkedin.com/posts/trywzgate_%D8%A7%D8%B2%D8%A7%D9%8A-%D8%AA%D8%B9%D9%85%D9%84-landing-page-%D8%AA%D9%86%D8%A7%D8%B3%D8%A8-%D8%B9%D9%85%D9%8A%D9%84%D9%83-activity-7479485852012744704-QoR4"}, {"img": "", "label": "Video: 4 Hero Section mistakes that lose leads every day (mistake #4: page not working on mobile)", "url": "https://www.instagram.com/wzgate/reel/DZcrxr0jYlc/"}, {"img": "", "label": "Static design: Google Ads budget pacing update, effective June 1, 2026", "url": "https://www.instagram.com/wzgate/p/DZXo_zXCMsJ/"}, {"img": "", "label": "Video: Makkadi Heights campaign results - 330 interested clients from EGP 187,000 spend", "url": "https://www.instagram.com/wzgate/reel/DZST-SPjx5f/"}], "docs": [{"title": "WzState marketing strategy (English)", "url": "WzState-Marketing-Strategy.pdf"}, {"title": "WzState content plan (Arabic)", "url": "WzState-Content-Plan.pdf"}], "id": "s1", "links": [{"platform": "Facebook", "url": "https://www.facebook.com/share/18v3ZG6Gxa/"}, {"platform": "Instagram", "url": "https://www.instagram.com/wzgate"}, {"platform": "LinkedIn", "url": "https://www.linkedin.com/company/trywzgate/"}], "name": "wzgate — Social Media Specialist", "plan": "https://docs.google.com/spreadsheets/d/1OgBlKZRa0UpwC31Fe3bYmqxIiuNzKZ2gimHHUp0gsLw/edit?gid=2120594338#gid=2120594338", "planNotes": "WzState marketing strategy, Nov 2026 – Jan 2027, Egypt and KSA. Goal: 10 new clients by end of January through 50 demos, targeting real estate brokerages. Channels: Meta, LinkedIn and Google plus weekly organic content, with a EGP 60K monthly ad budget. Launch: Nov 1 in Egypt, Dec 15 in KSA.", "results": [{"label": "LinkedIn followers (Dec 2025 – Nov 2026)", "num": "1,098"}, {"label": "LinkedIn page views", "num": "1,694"}, {"label": "LinkedIn unique visitors", "num": "678"}, {"label": "Organic Facebook content views (Apr 2025 – Jul 2026)", "num": "9.6K"}, {"label": "Total Facebook content views, incl. paid promotion (Apr 2025 – Jul 2026)", "num": "146K"}], "year": "Mar 2025 – Present"}, {"badge": "SaaS · Saudi", "brief": "Social media strategy and media buying for a Saudi marketplace app — content creation, paid campaigns, and app install ads across Snapchat, Instagram, and TikTok.", "content": [{"img": "", "label": "Rent instead of buying: household furniture and appliances for a week", "url": "https://www.instagram.com/trent.saudi/p/DgFwpyXjv8A/"}, {"img": "", "label": "Event rental: book the full setup in 3 steps (app screen)", "url": "https://www.instagram.com/trent.saudi/p/DgDLzUhDpOl/"}, {"img": "", "label": "Event rental: describe what you need and get it arranged (app screen)", "url": "https://www.instagram.com/trent.saudi/p/DgAgryfuNNy/"}, {"img": "", "label": "White Friday: rent instead of buying, with discount banner", "url": "https://www.instagram.com/trent.saudi/reel/Df7dc85uo-K/"}, {"img": "", "label": "Gym at home: rent fitness equipment before committing to a purchase", "url": "https://www.instagram.com/trent.saudi/p/Df44nvYDFT7/"}, {"img": "", "label": "Pressure washer for rent: try it before you decide to buy", "url": "https://www.instagram.com/trent.saudi/p/Df2T0giiYC9/"}, {"img": "", "label": "White Friday: gaming handheld rental with installment options", "url": "https://www.instagram.com/trent.saudi/p/DfzvCIvmUGI/"}, {"img": "", "label": "Humor post: the relatable \"is it worth buying?\" moment", "url": "https://www.instagram.com/trent.saudi/p/DfxLX3bE2RH/"}, {"img": "", "label": "Storage-room tour: items most households rarely use, perfect to rent", "url": "https://www.instagram.com/trent.saudi/p/DfunP5euPmc/"}, {"img": "", "label": "Things you didn't know you can rent: heavy equipment (video cover)", "url": "https://www.instagram.com/trent.saudi/reel/Dfpi1o7BTqu/"}, {"img": "", "label": "DJ mixer rental for a party, with daily rate", "url": "https://www.instagram.com/trent.saudi/p/Dfm9Nqmu3Zr/"}, {"img": "", "label": "Air fryer: everyone loves it, rent it first (daily rate)", "url": "https://www.instagram.com/trent.saudi/p/DfkSRCVnXVH/"}], "id": "s2", "links": [{"platform": "Instagram", "url": "https://www.instagram.com/trent.saudi/"}], "name": "TRENT App", "plan": "https://docs.google.com/spreadsheets/d/1ywFsTjwEZr0ypvdNayHZaVn0X66q6OHdp0L_tYDZ_lA/edit?usp=drive_link", "planNotes": "Monthly Instagram content calendar (Oct–Nov 2026): posts, stories, reels and carousels built around the \"try before you buy\" rent-or-buy idea, with separate tracks for shoppers and merchants.", "results": [{"label": "Views across Instagram and TikTok (Jun – Sep 2026)", "num": "1.53M"}, {"label": "Ad impressions across both platforms", "num": "3.45M"}, {"label": "Unique accounts reached on Instagram", "num": "648K"}, {"label": "Views on the best TikTok video (Money20/20 content)", "num": "729K"}, {"label": "Merchant registration starts in 10 days, 3 completed", "num": "323"}], "year": "2026"}, {"badge": "E-commerce", "brief": "Content plan for a handicrafts platform — SWOT, channel strategy, and a calendar targeting 1,000+ followers in 2 months with a 5–15% sales increase.", "content": [], "docs": [{"title": "Marketing plan (PDF)", "url": "https://drive.google.com/file/d/12JTM3WUhy1VTacJt3G2p-td_uYKDIEQ4/view?usp=drivesdk"}, {"title": "Content plan (PDF)", "url": "https://drive.google.com/file/d/1TRd9lyEDIgE2E39CQoCZITVAktREl3Am/view?usp=drivesdk"}, {"title": "Content showcase (PDF)", "url": "https://drive.google.com/file/d/1izkaOD_ZNxng3dUoDUXNYVz-EiJfVfrb/view?usp=drivesdk"}], "id": "c2", "links": [], "name": "حرفي", "plan": "", "planNotes": "", "results": [], "year": "2022"}, {"badge": "IT & AI Solutions", "brief": "Marketing plan and content strategies for a tech company offering AI recommendation systems, websites and mobile apps, aimed at e-commerce, schools and course owners in Egypt and the Gulf.", "content": [], "docs": [{"title": "Marketing plan (PDF)", "url": "https://drive.google.com/file/d/1GPfW1xUH6aATTpzGcPB-lNLuOjnlRDzw/view?usp=drivesdk"}, {"title": "Content strategy: AI recommendation system (PPTX)", "url": "https://drive.google.com/file/d/1FBnsbX7vh9TIVADcvMZ6kt7DiKu6nNGJ/view?usp=drivesdk"}, {"title": "Content strategy: websites and mobile apps (PPTX)", "url": "https://drive.google.com/file/d/1YnsIhIXzvF6U1drWGOwpZ8xc-TeqwqVN/view?usp=drivesdk"}, {"title": "Editorial calendar (Google Sheet)", "url": "https://docs.google.com/spreadsheets/d/10I186EZdlMRwKEgfw6wBzIYKmluigvVaVUmg7y89lcw/edit?usp=sharing"}], "id": "k1", "links": [], "name": "Technodera", "plan": "", "planNotes": "", "results": [], "year": "2022"}, {"badge": "Beauty App", "brief": "Market research and content writing for an app that helps users find and book appointments at nearby beauty salons in Egypt.", "content": [], "docs": [{"title": "Content showcase (PDF)", "url": "https://drive.google.com/file/d/1CwmjNde_-Fc5qxmdVPycsNr8-zUMIFDS/view?usp=drivesdk"}], "id": "k2", "links": [], "name": "Her Map", "plan": "", "planNotes": "", "results": [], "year": "2024"}, {"badge": "Auctions · Saudi", "brief": "Brand identity direction, a simple sign-up flow and diverse content for a Saudi electronic auctions platform.", "content": [], "docs": [{"title": "Content showcase (PDF)", "url": "https://drive.google.com/file/d/1bUGgAtpAq_DwaecmQ56ZZ7vnUEwfpX91/view?usp=drivesdk"}], "id": "k3", "links": [], "name": "Mazadat", "plan": "", "planNotes": "", "results": [], "year": "2024"}, {"badge": "Marketing Agency", "brief": "Marketing content writing at a digital marketing company: social media content, branding and campaign messages for its clients.", "content": [], "docs": [{"title": "Content showcase (PDF)", "url": "https://drive.google.com/file/d/1w9bKJvqTWwNhgGyLnqQW0d2bmSXg5YwE/view?usp=drivesdk"}], "id": "k4", "links": [], "name": "Connect", "plan": "", "planNotes": "", "results": [], "year": "2024"}]};
+const STATIC_TEXT = {"_emailVal": "daliaabdelrhman098@gmail.com", "_waVal": "+201094063374", "about-label": "About", "about-p1": "I'm Dalia, a social media and digital marketing specialist with deep expertise in the Gulf and Egyptian markets. I work at the intersection of content, strategy, and data building social media systems that generate real leads and measurable results.", "about-p2": "From content calendars and Reels scripts to full paid media campaigns on Meta and Google, I manage the full cycle bilingual in Arabic and English, adapting between Gulf and Egyptian dialect.", "about-p3": "Currently at wzgate  a digital marketing and real estate tech company — managing multi-client accounts across diverse sectors simultaneously.", "about-title": "Strategy meets storytelling", "contact-drive-label": "Full portfolio on Drive", "contact-em": "together?", "contact-email-label": "Send me an email", "contact-label": "Contact", "contact-title": "Ready to grow your brand", "contact-wa-label": "WhatsApp me", "footer-line": "Social Media Specialist · KSA & Egypt", "hero-cta": "Let's work together", "hero-desc": "Helping brands build a real social media presence from strategy to execution, in Arabic and English.", "hero-em": "", "hero-line1": "Hi, I'm Dalia", "hero-tag": "Social Media Specialist", "stat1-lbl": "Years experience", "stat1-num": "5+", "stat2-lbl": "Brands served", "stat2-num": "20+", "stat3-lbl": "Markets — KSA & EG", "stat3-num": "2", "stat4-lbl": "Industries", "stat4-num": "5+", "svc-ads-desc": "Campaign setup, RSA copy, keyword targeting, and performance optimization — focused on lead generation for real estate and service businesses in Egypt and the Gulf.", "svc-ads-title": "Google Ads", "svc-content-desc": "Brand-aligned Arabic and English content — captions, scripts, carousels, blogs, and Reels concepts tailored to resonate with Egyptian and Gulf audiences.", "svc-content-title": "Content & Copywriting", "svc-seo-desc": "Bilingual keyword research, on-page optimization, meta content, and product-page SEO for Arabic e-commerce platforms including Zid and Salla.", "svc-seo-title": "SEO", "svc-sm-desc": "Full account management strategy, content calendars, community management, and performance tracking across Instagram, Facebook, Snapchat, and TikTok in the MENA region.", "svc-sm-title": "Social Media Management", "tag1": "Content Strategy", "tag2": "Arabic Copywriting", "tag3": "Meta Ads", "tag4": "Google Ads", "tag5": "SEO", "tag6": "Reels & Video", "tag7": "Snapchat", "tag8": "Lead Generation", "work-label": "Selected Work", "work-title": "Services & Case Studies"};
+async function init() {
+  clients = JSON.parse(JSON.stringify(STATIC_CLIENTS));
+  document.querySelectorAll('[data-key]').forEach(el => { const k = el.getAttribute('data-key'); if (STATIC_TEXT[k] !== undefined) el.textContent = STATIC_TEXT[k]; });
+  if (STATIC_TEXT._emailVal) { document.getElementById('emailVal').value = STATIC_TEXT._emailVal; document.getElementById('emailLink').href = 'mailto:' + STATIC_TEXT._emailVal; }
+  if (STATIC_TEXT._waVal) { document.getElementById('waVal').value = STATIC_TEXT._waVal; document.getElementById('waLink').href = 'https://wa.me/' + String(STATIC_TEXT._waVal).replace(/\D/g,''); }
+  renderAll();
+}
+
+// ─── PAGE TEXT ────────────────────────────────────────────────────
+async function loadPageText() {
+  if (!db) return;
+  try {
+    const doc = await db.doc('portfolio/pageText').get();
+    if (doc.exists && doc.data()) {
+      const data = doc.data();
+      // Apply saved text to all data-key elements
+      document.querySelectorAll('[data-key]').forEach(el => {
+        const k = el.getAttribute('data-key');
+        if (data[k] !== undefined) el.textContent = data[k];
+      });
+      // Apply contact links
+      if (data['_emailVal']) {
+        document.getElementById('emailVal').value = data['_emailVal'];
+        document.getElementById('emailLink').href = 'mailto:' + data['_emailVal'];
+      }
+      if (data['_waVal']) {
+        document.getElementById('waVal').value = data['_waVal'];
+        document.getElementById('waLink').href = 'https://wa.me/' + String(data['_waVal']).replace(/\D/g,'');
+      }
+    }
+  } catch(e) {}
+}
+
+async function savePageText() {
+  if (!db) { flash('Not saved: open the page while signed in to edit'); return; }
+  const data = {};
+  document.querySelectorAll('[data-key]').forEach(el => {
+    data[el.getAttribute('data-key')] = el.textContent.trim();
+  });
+  // Save contact links too
+  const ev = document.getElementById('emailVal').value.trim();
+  const wv = document.getElementById('waVal').value.trim();
+  if (ev) { data['_emailVal'] = ev; document.getElementById('emailLink').href = 'mailto:' + ev; }
+  if (wv) { data['_waVal'] = wv; document.getElementById('waLink').href = 'https://wa.me/' + wv.replace(/\D/g,''); }
+  try {
+    await db.doc('portfolio/pageText').set(data);
+    flash('Saved ✓');
+  } catch(e) {
+    flash("Couldn't save text (" + ((e && e.code) || 'error') + ")");
+  }
+}
+
+function saveContactLinks() {
+  savePageText();
+}
+
+function setContentEditable(on) {
+  document.querySelectorAll('[data-key]').forEach(el => {
+    el.contentEditable = on ? 'true' : 'false';
+  });
+  const cf = document.getElementById('contactEditFields');
+  if (cf) cf.style.display = on ? 'flex' : 'none';
+}
+
+async function loadClients() {
+  if (!db) { clients = JSON.parse(JSON.stringify(SEED)); return; }
+  try {
+    const doc = await db.doc('portfolio/clients').get();
+    if (doc.exists && doc.data().data) {
+      clients = JSON.parse(JSON.stringify(doc.data().data));
+    } else {
+      clients = JSON.parse(JSON.stringify(SEED));
+      await db.doc('portfolio/clients').set({data: clients});
+    }
+  } catch(e) {
+    clients = JSON.parse(JSON.stringify(SEED));
+  }
+}
+
+function flash(msg) {
+  const t = document.getElementById('saveToast');
+  if (!t) return;
+  t.textContent = msg;
+  t.classList.add('show');
+  setTimeout(() => t.classList.remove('show'), 3200);
+}
+
+async function saveClients() {
+  if (!db) { flash('Not saved: open the page while signed in to edit'); return false; }
+  try {
+    await db.doc('portfolio/clients').set({data: clients});
+    flash('Saved ✓');
+    return true;
+  } catch(e) {
+    flash("Couldn't save (" + ((e && e.code) || 'error') + ")");
+    return false;
+  }
+}
+
+// ─── RENDER ──────────────────────────────────────────────────────
+function renderAll() {
+  ['sm','content','seo','ads'].forEach(svc => renderService(svc));
+}
+
+function renderService(svc) {
+  const container = document.getElementById('clients-' + svc);
+  const addBtn = document.getElementById('addBtn-' + svc);
+  if (!container) return;
+  container.innerHTML = '';
+  if (editMode && addBtn) addBtn.style.display = 'inline-flex';
+
+  (clients[svc] || []).forEach((client, idx) => {
+    const row = document.createElement('div');
+    row.className = 'client-row';
+    row.id = 'row-' + client.id;
+    row.innerHTML = buildClientHTML(client, svc, idx);
+    container.appendChild(row);
+  });
+}
+
+function buildClientHTML(c, svc, idx) {
+  const linksHTML = c.links && c.links.length ? c.links.map(l => `
+    <div class="link-item">
+      <span class="link-platform">${esc(l.platform)}</span>
+      <a href="${esc(l.url)}" target="_blank" rel="noopener">${esc(l.url) || 'No link yet'}</a>
+    </div>`).join('') : '<p style="color:var(--mid);font-size:.85rem">No links added yet.</p>';
+
+  const resultsHTML = c.results && c.results.length ? `
+    <div class="results-grid">${c.results.map(r=>`
+      <div class="result-card"><div class="result-num">${esc(r.num)}</div><div class="result-lbl">${esc(r.label)}</div></div>
+    `).join('')}</div>` : '<p style="color:var(--mid);font-size:.85rem">No results added yet.</p>';
+
+  const contentHTML = c.content && c.content.length ? `
+    <div class="content-grid">${c.content.map(item=>`
+      <div class="content-item">
+        ${item.img ? `<img src="${esc(item.img)}" alt="${esc(item.label||'')}" loading="lazy">` : `<div style="height:120px;background:var(--faint);display:flex;align-items:center;justify-content:center;color:var(--mid);font-size:.75rem">No image</div>`}
+        <div class="content-item-label">${esc(item.label||'')}</div>
+        ${item.url ? `<a href="${esc(item.url)}" target="_blank">View post</a>` : ''}
+      </div>`).join('')}</div>` : '<p style="color:var(--mid);font-size:.85rem">No content added yet.</p>';
+
+  const docKind = d => /\.pdf($|\?)/i.test(d.url||'') ? 'PDF' : (/(drive|docs)\.google\.com/i.test(d.url||'') ? 'Drive' : 'Link');
+  const docsHTML = c.docs && c.docs.length ? `<div class="links-list">${c.docs.map(d=>`
+    <div class="link-item"><span class="link-platform">${docKind(d)}</span><a href="${esc(d.url)}" target="_blank" rel="noopener">${esc(d.title||d.url)}</a></div>`).join('')}</div>` : '<p style="color:var(--mid);font-size:.85rem">No files or links added yet.</p>';
+
+  const editBtns = editMode ? `
+    <div style="display:flex;gap:.8rem;margin-bottom:1rem">
+      <button class="add-btn" onclick="editClient('${svc}',${idx});event.stopPropagation()">✏ Edit</button>
+      <button class="delete-btn" onclick="deleteClient('${svc}',${idx},this);event.stopPropagation()">✕ Remove brand</button>
+    </div>` : '';
+
+  return `
+    <div class="client-header" onclick="toggleClient('${c.id}')">
+      <span class="client-year">${esc(c.year)}</span>
+      <span class="client-name">${esc(c.name)}</span>
+      <span class="client-badge">${esc(c.badge)}</span>
+      ${editMode ? `<button class="delete-btn" title="Delete this brand" onclick="deleteClient('${svc}',${idx},this);event.stopPropagation()">✕ Delete</button>` : ''}
+      <span class="client-arrow">→</span>
+    </div>
+    <div class="client-body">
+      ${editBtns}
+      <p class="client-brief">${esc(c.brief)}</p>
+      ${svc === 'content' ? `<div id="${c.id}-content" class="ctab-panel active">${contentHTML}</div>` : `<div class="client-tabs">
+        <button class="ctab active" onclick="switchCTab('${c.id}','plan',this)">Strategy & Plan</button>
+        <button class="ctab" onclick="switchCTab('${c.id}','links',this)">Social Links</button>
+        <button class="ctab" onclick="switchCTab('${c.id}','results',this)">Results</button>
+        <button class="ctab" onclick="switchCTab('${c.id}','content',this)">Content</button>
+      </div>
+      <div id="${c.id}-plan" class="ctab-panel active">
+        ${c.plan ? `<a class="plan-pdf-btn" href="${esc(c.plan)}" target="_blank">View Full Plan / PDF</a>` : ((c.docs && c.docs.length) ? '' : '<p style="color:var(--mid);font-size:.85rem">No plan link added yet.</p>')}
+        ${c.planNotes ? `<p class="plan-notes">${esc(c.planNotes)}</p>` : ''}
+        ${c.docs && c.docs.length ? `<div style="margin-top:16px">${docsHTML}</div>` : ''}
+      </div>
+      <div id="${c.id}-links" class="ctab-panel"><div class="links-list">${linksHTML}</div></div>
+      <div id="${c.id}-results" class="ctab-panel">${resultsHTML}</div>
+      <div id="${c.id}-content" class="ctab-panel">${contentHTML}</div>`}
+    </div>`;
+}
+
+function esc(s){ if(!s) return ''; return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;') }
+
+// ─── INTERACTIONS ─────────────────────────────────────────────────
+function toggleClient(id) {
+  const row = document.getElementById('row-' + id);
+  if (!row) return;
+  row.classList.toggle('open');
+}
+
+function switchCTab(clientId, panel, btn) {
+  const panels = ['plan','links','results','content','docs'];
+  panels.forEach(p => {
+    const el = document.getElementById(clientId + '-' + p);
+    if (el) el.classList.remove('active');
+  });
+  btn.closest('.client-body').querySelectorAll('.ctab').forEach(t => t.classList.remove('active'));
+  const target = document.getElementById(clientId + '-' + panel);
+  if (target) target.classList.add('active');
+  btn.classList.add('active');
+}
+
+function switchTab(tab, btn) {
+  document.querySelectorAll('.svc-panel').forEach(p => p.classList.remove('active'));
+  document.querySelectorAll('.svc-tab').forEach(t => t.classList.remove('active'));
+  document.getElementById('tab-' + tab).classList.add('active');
+  btn.classList.add('active');
+}
+
+// ─── EDIT MODE ────────────────────────────────────────────────────
+function toggleEdit() {
+  editMode = !editMode;
+  const btn = document.getElementById('editBtn');
+  const bar = document.getElementById('editBar');
+  btn.textContent = editMode ? '✦ Done editing' : '✦ Edit mode';
+  btn.classList.toggle('active', editMode);
+  bar.classList.toggle('show', editMode);
+  document.body.classList.toggle('edit-mode', editMode);
+  setContentEditable(editMode);
+  if (!editMode) savePageText(); // auto-save on exit
+  renderAll();
+}
+
+// ─── ADD / EDIT CLIENT ────────────────────────────────────────────
+let currentEditService = null, currentEditIdx = null;
+
+function showAddClient(svc) {
+  currentEditService = svc;
+  currentEditIdx = null;
+  clearModal();
+  document.getElementById('modalService').value = svc;
+  document.getElementById('addModal').style.display = 'flex';
+}
+
+function editClient(svc, idx) {
+  const c = clients[svc][idx];
+  currentEditService = svc;
+  currentEditIdx = idx;
+  clearModal();
+  document.getElementById('f-name').value = c.name || '';
+  document.getElementById('f-year').value = c.year || '';
+  document.getElementById('f-badge').value = c.badge || '';
+  document.getElementById('f-brief').value = c.brief || '';
+  document.getElementById('f-plan').value = c.plan || '';
+  document.getElementById('f-plan-notes').value = c.planNotes || '';
+  (c.links||[]).forEach(l => addSocialRow(l.platform, l.url));
+  (c.results||[]).forEach(r => addResultRow(r.num, r.label));
+  (c.docs||[]).forEach(d => addDocRow(d.title, d.url));
+  (c.content||[]).forEach(ct => addContentRow(ct.img, ct.url, ct.label));
+  document.getElementById('addModal').style.display = 'flex';
+}
+
+function clearModal() {
+  document.getElementById('f-name').value = '';
+  document.getElementById('f-year').value = '';
+  document.getElementById('f-badge').value = '';
+  document.getElementById('f-brief').value = '';
+  document.getElementById('f-plan').value = '';
+  document.getElementById('f-plan-notes').value = '';
+  document.getElementById('socialLinksContainer').innerHTML = '';
+  document.getElementById('resultsContainer').innerHTML = '';
+  document.getElementById('contentContainer').innerHTML = '';
+  document.getElementById('docsContainer').innerHTML = '';
+}
+
+function addSocialRow(platform='', url='') {
+  const d = document.createElement('div');
+  d.style.cssText = 'display:grid;grid-template-columns:140px 1fr auto;gap:.5rem;margin-bottom:.5rem;align-items:center';
+  d.innerHTML = `
+    <select style="padding:.5rem;border:1px solid var(--faint);background:var(--warm);font-family:'Jost',sans-serif;font-size:.82rem">
+      ${['Facebook','Instagram','Snapchat','TikTok','LinkedIn','Twitter','YouTube','Other'].map(p=>`<option ${p===platform?'selected':''}>${p}</option>`).join('')}
+    </select>
+    <input placeholder="https://..." value="${esc(url)}" style="padding:.5rem .8rem;border:1px solid var(--faint);background:var(--warm);font-family:'Jost',sans-serif;font-size:.82rem;width:100%">
+    <button onclick="this.parentElement.remove()" style="background:none;border:none;cursor:pointer;color:var(--mid);font-size:1rem">✕</button>`;
+  document.getElementById('socialLinksContainer').appendChild(d);
+}
+
+function addResultRow(num='', label='') {
+  const d = document.createElement('div');
+  d.style.cssText = 'display:grid;grid-template-columns:100px 1fr auto;gap:.5rem;margin-bottom:.5rem;align-items:center';
+  d.innerHTML = `
+    <input placeholder="20+" value="${esc(num)}" style="padding:.5rem;border:1px solid var(--faint);background:var(--warm);font-family:'Jost',sans-serif;font-size:.82rem;text-align:center">
+    <input placeholder="Clients managed" value="${esc(label)}" style="padding:.5rem .8rem;border:1px solid var(--faint);background:var(--warm);font-family:'Jost',sans-serif;font-size:.82rem;width:100%">
+    <button onclick="this.parentElement.remove()" style="background:none;border:none;cursor:pointer;color:var(--mid);font-size:1rem">✕</button>`;
+  document.getElementById('resultsContainer').appendChild(d);
+}
+
+function addDocRow(title='', url='') {
+  const d = document.createElement('div');
+  d.style.cssText = 'display:grid;grid-template-columns:1fr 1.4fr auto;gap:.5rem;margin-bottom:.5rem;align-items:center';
+  d.innerHTML = `
+    <input placeholder="Title, e.g. Content plan Nov" value="${esc(title)}" style="padding:.5rem .8rem;border:1px solid var(--faint);background:var(--warm);font-family:'Jost',sans-serif;font-size:.82rem;width:100%">
+    <input placeholder="https://drive.google.com/... or .pdf link" value="${esc(url)}" style="padding:.5rem .8rem;border:1px solid var(--faint);background:var(--warm);font-family:'Jost',sans-serif;font-size:.82rem;width:100%">
+    <button onclick="this.parentElement.remove()" style="background:none;border:none;cursor:pointer;color:var(--mid);font-size:1rem">✕</button>`;
+  document.getElementById('docsContainer').appendChild(d);
+}
+
+function addContentRow(img='', url='', label='') {
+  const d = document.createElement('div');
+  d.style.cssText = 'background:var(--cream);border:1px solid var(--faint);padding:.8rem;margin-bottom:.6rem;display:flex;flex-direction:column;gap:.4rem';
+  d.innerHTML = `
+    <div style="font-size:.68rem;letter-spacing:.08em;text-transform:uppercase;color:var(--mid)">Image URL (Drive/direct link)</div>
+    <input placeholder="https://drive.google.com/..." value="${esc(img)}" style="padding:.45rem .7rem;border:1px solid var(--faint);background:var(--warm);font-family:'Jost',sans-serif;font-size:.82rem;width:100%">
+    <div style="font-size:.68rem;letter-spacing:.08em;text-transform:uppercase;color:var(--mid)">Post / content link</div>
+    <input placeholder="https://facebook.com/..." value="${esc(url)}" style="padding:.45rem .7rem;border:1px solid var(--faint);background:var(--warm);font-family:'Jost',sans-serif;font-size:.82rem;width:100%">
+    <div style="font-size:.68rem;letter-spacing:.08em;text-transform:uppercase;color:var(--mid)">Caption / label</div>
+    <div style="display:flex;gap:.5rem">
+      <input placeholder="Brief description" value="${esc(label)}" style="padding:.45rem .7rem;border:1px solid var(--faint);background:var(--warm);font-family:'Jost',sans-serif;font-size:.82rem;flex:1">
+      <button onclick="this.closest('[style]').remove()" style="background:none;border:none;cursor:pointer;color:var(--mid);font-size:1rem;padding:.4rem">✕</button>
+    </div>`;
+  document.getElementById('contentContainer').appendChild(d);
+}
+
+function saveClient() {
+  const svc = currentEditService;
+  const client = {
+    id: (currentEditIdx !== null && clients[svc][currentEditIdx]) ? clients[svc][currentEditIdx].id : 'c' + Date.now(),
+    name: document.getElementById('f-name').value.trim(),
+    year: document.getElementById('f-year').value.trim(),
+    badge: document.getElementById('f-badge').value.trim(),
+    brief: document.getElementById('f-brief').value.trim(),
+    plan: document.getElementById('f-plan').value.trim(),
+    planNotes: document.getElementById('f-plan-notes').value.trim(),
+    links: [],
+    results: [],
+    content: [],
+    docs: []
+  };
+
+  document.getElementById('socialLinksContainer').querySelectorAll('div').forEach(row => {
+    const sel = row.querySelector('select');
+    const inp = row.querySelector('input');
+    if (sel && inp && inp.value.trim()) client.links.push({platform: sel.value, url: inp.value.trim()});
+  });
+
+  document.getElementById('resultsContainer').querySelectorAll('div').forEach(row => {
+    const ins = row.querySelectorAll('input');
+    if (ins[0] && ins[0].value.trim()) client.results.push({num: ins[0].value.trim(), label: ins[1]?.value.trim() || ''});
+  });
+
+  document.getElementById('docsContainer').querySelectorAll('div').forEach(row => {
+    const ins = row.querySelectorAll('input');
+    if (ins.length >= 2 && ins[1].value.trim()) client.docs.push({title: ins[0].value.trim(), url: ins[1].value.trim()});
+  });
+
+  document.getElementById('contentContainer').querySelectorAll('[style]').forEach(row => {
+    const ins = row.querySelectorAll('input');
+    if (ins.length >= 3) client.content.push({img: ins[0].value.trim(), url: ins[1].value.trim(), label: ins[2].value.trim()});
+  });
+
+  if (!clients[svc]) clients[svc] = [];
+  if (currentEditIdx !== null) {
+    clients[svc][currentEditIdx] = client;
+  } else {
+    clients[svc].push(client);
+  }
+
+  saveClients();
+  closeModal();
+  renderService(svc);
+}
+
+let pendingDelete = null;
+async function deleteClient(svc, idx, btn) {
+  const key = svc + ':' + idx;
+  if (pendingDelete !== key) {
+    pendingDelete = key;
+    const old = btn ? btn.textContent : '';
+    if (btn) btn.textContent = 'Sure? Click again';
+    flash('Click again to delete this brand');
+    setTimeout(() => { if (pendingDelete === key) { pendingDelete = null; if (btn) btn.textContent = old; } }, 4000);
+    return;
+  }
+  pendingDelete = null;
+  clients[svc].splice(idx, 1);
+  await saveClients();
+  renderService(svc);
+}
+
+function closeModal() {
+  document.getElementById('addModal').style.display = 'none';
+}
+
+// ─── SCROLL FADE ─────────────────────────────────────────────────
+const obs = new IntersectionObserver(entries => {
+  entries.forEach(e => { if(e.isIntersecting){ e.target.classList.add('visible'); obs.unobserve(e.target); }});
+},{threshold:.1});
+document.querySelectorAll('.fade-up').forEach(el => obs.observe(el));
+
+init();
+</script>
+</body>
+</html>
